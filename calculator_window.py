@@ -1,4 +1,4 @@
-from PySide6 import QtWidgets
+from PySide6 import QtWidgets, QtGui
 import math
 
 
@@ -30,12 +30,43 @@ class Calculator(QtWidgets.QWidget):
         for text in buttons:
             if text:
                 button = QtWidgets.QPushButton(text)
+                button.setObjectName(text)  # Set object name for styling
                 button.clicked.connect(self.on_button_clicked)
                 self.buttonsLayout.addWidget(button, row, col)
             col += 1
             if col > 4:
                 col = 0
                 row += 1
+
+        self.apply_stylesheet()
+
+    def apply_stylesheet(self):
+        self.setStyleSheet("""
+            QWidget {
+                background-color: #2E2E2E;
+                color: #FFFFFF;
+            }
+            QLineEdit {
+                background-color: #1E1E1E;
+                color: #FFFFFF;
+                border: none;
+                padding: 20px;
+                font-size: 30px;
+            }
+            QPushButton {
+                background-color: #4B4B4B;
+                color: #FFFFFF;
+                border: none;
+                padding: 15px;
+                font-size: 18px;
+            }
+            QPushButton:pressed {
+                background-color: #616161;
+            }
+            QPushButton#C {
+                color: #FF5555;
+            }
+        """)
 
     def on_button_clicked(self):
         button = self.sender()
